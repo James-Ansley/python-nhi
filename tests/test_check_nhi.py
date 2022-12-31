@@ -61,6 +61,14 @@ class TestCheckNHI(unittest.TestCase):
         self.assertFalse(is_nhi("ZVU27KA"))
         self.assertFalse(is_nhi("ZHW58CZ"))
 
+    def test_random_strings_are_invalid(self):
+        self.assertFalse(is_nhi("not an NHI"))
+        self.assertFalse(is_nhi("!@#$%&*"))
+        self.assertFalse(is_nhi("AAANNNC"))
+        self.assertFalse(is_nhi("AAANNAC"))
+        self.assertFalse(is_nhi("ZVU27K"))
+        self.assertFalse(is_nhi("JBX365"))
+
     def test_is_nhi_is_case_insensitive(self):
         # Valid Cases
         self.assertTrue(is_nhi("jBx3656"))
