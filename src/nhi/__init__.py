@@ -1,1 +1,1 @@
-from .nhi import check_nhi
+from ._nhi import is_nhi
