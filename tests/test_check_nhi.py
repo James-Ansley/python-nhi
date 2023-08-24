@@ -1,4 +1,6 @@
+import string
 import unittest
+
 from nhi import is_nhi
 
 
@@ -20,18 +22,15 @@ class TestCheckNHI(unittest.TestCase):
         self.assertTrue(is_nhi("ZAC5361"))
 
     def test_valid_new_format_NHI_number(self):
-        self.assertTrue(is_nhi("ZVU27KZ"))
-        self.assertTrue(is_nhi("ALU18KZ"))
-        self.assertTrue(is_nhi("AUL78CF"))
-        self.assertTrue(is_nhi("ARM79XB"))
-        self.assertTrue(is_nhi("ATD33RD"))
-        self.assertTrue(is_nhi("ADH48ZJ"))
-        self.assertTrue(is_nhi("ZBC42DQ"))
-        self.assertTrue(is_nhi("ZZZ00AX"))
-        self.assertTrue(is_nhi("ZGT56KB"))
-        self.assertTrue(is_nhi("ZHS91BR"))
-        self.assertTrue(is_nhi("ZHW58CN"))
-        self.assertTrue(is_nhi("ZLV86AX"))
+        self.assertTrue(is_nhi("ZBN77VL"))
+        self.assertTrue(is_nhi("ZZZ00AC"))
+        self.assertTrue(is_nhi("ZDR69YX"))
+        self.assertTrue(is_nhi("ZSC21TN"))
+        self.assertTrue(is_nhi("ZZB30NH"))
+        self.assertTrue(is_nhi("ZYZ81ZV"))
+        self.assertTrue(is_nhi("ZVB97XQ"))
+        self.assertTrue(is_nhi("ZRA29VA"))
+        self.assertTrue(is_nhi("ZYX61YS"))
 
     def test_no_digit_can_be_added_to_an_old_format_NHI_with_a_checksum_of_0_to_make_it_valid(self):
         for i in range(10):
@@ -59,7 +58,12 @@ class TestCheckNHI(unittest.TestCase):
         self.assertFalse(is_nhi("ZZZ00AY"))
         self.assertFalse(is_nhi("ZVU27KY"))
         self.assertFalse(is_nhi("ZVU27KA"))
-        self.assertFalse(is_nhi("ZHW58CZ"))
+
+        # Needs a check character of V
+        for c in string.ascii_uppercase:
+            if c != "V":
+                with self.subTest(c=c):
+                    self.assertFalse(is_nhi(f"ZHW58C{c}"))
 
     def test_random_strings_are_invalid(self):
         self.assertFalse(is_nhi("not an NHI"))
@@ -85,18 +89,14 @@ class TestCheckNHI(unittest.TestCase):
         self.assertTrue(is_nhi("zAa0148"))
         self.assertTrue(is_nhi("zAa0156"))
         self.assertTrue(is_nhi("zAc5361"))
-        self.assertTrue(is_nhi("zVu27kz"))
-        self.assertTrue(is_nhi("aLu18kz"))
-        self.assertTrue(is_nhi("aUl78cf"))
-        self.assertTrue(is_nhi("aRm79xb"))
-        self.assertTrue(is_nhi("aTd33rd"))
-        self.assertTrue(is_nhi("aDh48zj"))
-        self.assertTrue(is_nhi("zBc42dq"))
-        self.assertTrue(is_nhi("zZz00ax"))
-        self.assertTrue(is_nhi("zGt56kb"))
-        self.assertTrue(is_nhi("zHs91br"))
-        self.assertTrue(is_nhi("zHw58cn"))
-        self.assertTrue(is_nhi("zLv86ax"))
+        self.assertTrue(is_nhi("zZz00aC"))
+        self.assertTrue(is_nhi("zDr69yX"))
+        self.assertTrue(is_nhi("zSc21tN"))
+        self.assertTrue(is_nhi("zZb30nH"))
+        self.assertTrue(is_nhi("zYz81Zv"))
+        self.assertTrue(is_nhi("zVb97Xq"))
+        self.assertTrue(is_nhi("zRa29Va"))
+        self.assertTrue(is_nhi("zYx61Ys"))
 
         # Invalid cases
         self.assertFalse(is_nhi("zzZ0044"))
